@@ -1,0 +1,34 @@
+
+# PowerShell 5.0 build worker
+os: WMF 5
+
+# Secret deployment keys
+#environment:
+# GitHubToken:
+#   secure: tbd
+# PSGalleryKey:
+#   secure: tbd
+
+# Install Pester module
+install: 
+  - ps: Install-PackageProvider NuGet -Force | Out-Null
+  - ps: Install-Module Pester -Force
+  - cmd: start /wait msiexec /i "Tools\SQLServer2012CLRTypes.msi"   /q /l "Tools\SQLServer2012CLRTypes.log"
+  - cmd: start /wait msiexec /i "Tools\ReportViewer2012Runtime.msi" /q /l "Tools\ReportViewer2012Runtime.log"
+  - cmd: start /wait msiexec /i "Tools\SCOM2012R2Console.msi"       /q /l "Tools\SCOM2012R2Console.log"
+  - ps: $ENV:PSModulePath += ';' + 'C:\Program Files\System Center Operations Manager 2012\PowerShell'; Import-Module OperationsManager -Force
+
+# Set version to build number
+version: '{build}'
+
+# Execute test script
+test_script:
+  - ps: . .\Scripts\test.ps1 -AppVeyor -Verbose
+
+# Execute build script
+build_script:
+  - ps: . .\Scripts\build.ps1 -AppVeyor -Verbose
+
+# Execute deployment script
+#deploy_script:
+#  - ps: . .\Scripts\deploy.ps1 -Verbose

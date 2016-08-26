@@ -1,2 +1,2 @@
 # OperationsManagerFever
-PowerShell Module with additional functions and cmdlets for System Center Operations Manager.
+PowerShell Module with additional custom functions and cmdlets for System Center Operations Manager.
