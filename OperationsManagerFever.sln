@@ -5,6 +5,37 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "OperationsManagerFever", "OperationsManagerFever\OperationsManagerFever.pssproj", "{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{274A836A-180C-413E-B789-F1289A0C7A73}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\build.ps1 = Scripts\build.ps1
+		Scripts\deploy.ps1 = Scripts\deploy.ps1
+		Scripts\test.ps1 = Scripts\test.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{389C41ED-5CEC-4593-AE2D-0D350181F622}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\OperationsManagerFever.Meta.Tests.ps1 = Tests\OperationsManagerFever.Meta.Tests.ps1
+		Tests\Spizzi.OperationsManager.Unit.Tests.ps1 = Tests\Spizzi.OperationsManager.Unit.Tests.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{F2C5D7CC-0BF2-4CA3-B6CE-FA5272C3EA0F}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\ReportViewer2012Runtime.msi = Tools\ReportViewer2012Runtime.msi
+		Tools\SCOM2012R2Console.msi = Tools\SCOM2012R2Console.msi
+		Tools\SQLServer2012CLRTypes.msi = Tools\SQLServer2012CLRTypes.msi
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppVeyor", "AppVeyor", "{F7C96621-4D60-432D-87C9-A544584D22B4}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub", "GitHub", "{C1DEE54B-818A-474F-8A5B-3A8A5B55B035}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
