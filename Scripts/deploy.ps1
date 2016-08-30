@@ -103,7 +103,7 @@ if ($AppVeyorTag -eq 'true' -and $AppVeyorBranch -eq 'master')
             draft            = $false
             prerelease       = $false
         }
-        $Release = Invoke-RestMethod -Method Post -Headers $ReleaseHeaders -Uri "https://api.github.com/repos/claudiospizzi/$ModuleName/releases" -Body ($ReleaseBody | ConvertTo-Json)
+        $Release = Invoke-RestMethod -Method Post -Headers $ReleaseHeaders -Uri "https://api.github.com/repos/claudiospizzi/$ModuleName/releases" -Body ($ReleaseBody | ConvertTo-Json) -ErrorAction Stop
 
         # Upload artifact
         $AssetHeaders = @{
@@ -112,7 +112,7 @@ if ($AppVeyorTag -eq 'true' -and $AppVeyorBranch -eq 'master')
             'Content-Type'  = 'application/zip'
         }
         $AssetInFile = "$ModulePath\$ModuleName-$ModuleVersion.$AppVeyorBuildNumber.zip"
-        $Asset = Invoke-RestMethod -Method Post -Headers $AssetHeaders -Uri "https://uploads.github.com/repos/claudiospizzi/$ModuleName/releases/$($Release.id)/assets?name=$ModuleName-$ReleaseVersion.zip" -InFile $AssetInFile
+        $Asset = Invoke-RestMethod -Method Post -Headers $AssetHeaders -Uri "https://uploads.github.com/repos/claudiospizzi/$ModuleName/releases/$($Release.id)/assets?name=$ModuleName-$ReleaseVersion.zip" -InFile $AssetInFile -ErrorAction Stop
     }
 
 
@@ -121,6 +121,6 @@ if ($AppVeyorTag -eq 'true' -and $AppVeyorBranch -eq 'master')
         Write-Verbose "** DEPLOY (PSGALLERY)"
 
         # Publish module into the PowerShell Gallery
-        Publish-Module -Name $ModuleName -RequiredVersion $ReleaseVersion -NuGetApiKey $PSGalleryKey
+        Publish-Module -Name $ModuleName -RequiredVersion $ReleaseVersion -NuGetApiKey $PSGalleryKey -ErrorAction Stop
     }
 }
