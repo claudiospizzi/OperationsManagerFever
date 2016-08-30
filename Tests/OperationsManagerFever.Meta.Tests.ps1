@@ -139,9 +139,9 @@ Describe 'Meta' {
 
         It 'should import without any errors' {
 
-            { Import-Module "$ProjectRoot\$ModuleName" -ErrorAction Stop } | Should Not Throw
+            { Import-Module "$ProjectRoot\$ModuleName" -Verbose:$false -ErrorAction Stop } | Should Not Throw
 
-            Remove-Module -Name 'OperationsManagerFever' -ErrorAction SilentlyContinue -Force
+            Remove-Module -Name 'OperationsManagerFever' -Verbose:$false -ErrorAction SilentlyContinue -Force
         }
     }
 }

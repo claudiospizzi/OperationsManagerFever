@@ -55,9 +55,14 @@ The module contains the following cmdlets:
 | Export-SCOMManagementPackBundle     | Export all artifacts from a SCOM Management Pack Bundle (.mpb). |
 | Get-SCOMHealthServiceActiveWorkflow | Show all active workflows on a Health Service (aka SCOM Agent). |
 | Get-SCOMHealthServiceFailedWorkflow | Show all failed workflows on a Health Service (aka SCOM Agent). |
+| Reset-SCOMMonitor                   | Bulk reset one or multiple monitors in the Management Group.    |
 
 
 ## Versions
+
+### tbd
+
+- Add cmdlet for reseting monitors
 
 ### 1.0.0
 
