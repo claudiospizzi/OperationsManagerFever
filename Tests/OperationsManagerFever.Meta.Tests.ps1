@@ -10,7 +10,27 @@ Describe 'Meta' {
 
     Context 'Project Structure' {
 
-        # ToDo
+        $Files = '\LICENSE',
+                 '\README.md',
+                 '\appveyor.yml',
+                 '\Scripts\build.ps1',
+                 '\Scripts\test.ps1',
+                 '\Scripts\deploy.ps1',
+                 "\$ModuleName.sln",
+                 "\$ModuleName\$ModuleName.pssproj",
+                 "\$ModuleName\$ModuleName.psd1",
+                 "\$ModuleName\$ModuleName.psm1",
+                 "\$ModuleName\en-US\about_$ModuleName.help.txt",
+                 "\$ModuleName\Resources\$ModuleName.Formats.ps1xml",
+                 "\$ModuleName\Resources\$ModuleName.Types.ps1xml"
+
+        foreach ($File in $Files)
+        {
+            It "should contain the file $File" {
+
+                Test-Path -Path "$ProjectRoot$File" | Should Be $true
+            }
+        }
     }
 
     Context 'File Encoding' {
