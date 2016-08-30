@@ -26,7 +26,7 @@
     AliasesToExport    = @()
     PrivateData        = @{
         PSData             = @{
-            Tags               = @('PSModule', 'System Center', 'Operations Manager', 'SCOM', 'OpsMgr')
+            Tags               = @('PSModule', 'System', 'Center', 'Operations', 'Manager', 'SCOM', 'OpsMgr')
             LicenseUri         = 'https://raw.githubusercontent.com/claudiospizzi/OperationsManagerFever/master/LICENSE'
             ProjectUri         = 'https://github.com/claudiospizzi/OperationsManagerFever'
             ExternalModuleDependencies = @(
