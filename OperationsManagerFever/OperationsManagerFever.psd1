@@ -20,6 +20,8 @@
         'Export-SCOMManagementPackBundle'
         'Get-SCOMHealthServiceActiveWorkflow'
         'Get-SCOMHealthServiceFailedWorkflow'
+        'Reset-SCOMAgentCache'
+        'Reset-SCOMAgentConfig'
         'Reset-SCOMMonitor'
     )
     CmdletsToExport    = @()

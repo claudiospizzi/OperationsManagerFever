@@ -50,12 +50,14 @@ To install the module manually, perform the following steps:
 
 The module contains the following cmdlets:
 
-| Cmdlet                              | Description                                                     |
-| ----------------------------------- | --------------------------------------------------------------- |
-| Export-SCOMManagementPackBundle     | Export all artifacts from a SCOM Management Pack Bundle (.mpb). |
-| Get-SCOMHealthServiceActiveWorkflow | Show all active workflows on a Health Service (aka SCOM Agent). |
-| Get-SCOMHealthServiceFailedWorkflow | Show all failed workflows on a Health Service (aka SCOM Agent). |
-| Reset-SCOMMonitor                   | Bulk reset one or multiple monitors in the Management Group.    |
+| Cmdlet                              | Description                                                        |
+| ----------------------------------- | ------------------------------------------------------------------ |
+| Export-SCOMManagementPackBundle     | Export all artifacts from a SCOM Management Pack Bundle (.mpb).    |
+| Get-SCOMHealthServiceActiveWorkflow | Show all active workflows on a Health Service (aka SCOM Agent).    |
+| Get-SCOMHealthServiceFailedWorkflow | Show all failed workflows on a Health Service (aka SCOM Agent).    |
+| Reset-SCOMAgentCache                | Reset the SCOM health service cache on target systems.             |
+| Reset-SCOMAgentConfig               | Reset the SCOM health service configuration (!) on target systems. |
+| Reset-SCOMMonitor                   | Bulk reset one or multiple monitors in the Management Group.       |
 
 
 ## Versions
@@ -63,6 +65,7 @@ The module contains the following cmdlets:
 ### tbd
 
 - Add cmdlet for reseting monitors
+- Add cmdlet for reseting agents
 
 ### 1.0.0
 
