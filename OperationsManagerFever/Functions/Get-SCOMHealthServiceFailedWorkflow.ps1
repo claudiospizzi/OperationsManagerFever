@@ -99,7 +99,7 @@ function Get-SCOMHealthServiceFailedWorkflow
                             WorkflowName             = $Workflow.Name
                             WorkflowDisplayName      = $Workflow.DisplayName
                         })
-                        $Object.PSTypeNames.Insert(0, 'Spizzi.PowerShell.OperationsManager.Workflow')
+                        $Object.PSTypeNames.Insert(0, 'OperationsManagerFever.Workflow')
 
                         Write-Output $Object
                     }

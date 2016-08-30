@@ -69,6 +69,9 @@ function Get-SCOMHealthServiceActiveWorkflow
 
     end
     {
+        # The SCOM tasks the get the active workflows on a target health
+        # services are started in parallel, therefore it needs to be in the end
+        # block of PowerShell.
         if ($HealthServices.Count -gt 0)
         {
             $Results = Invoke-SCOMTask -TaskName 'Microsoft.SystemCenter.GetAllRunningWorkflows' -Instance $HealthServices -Connection $Connection
@@ -99,7 +102,7 @@ function Get-SCOMHealthServiceActiveWorkflow
                             WorkflowName             = $Workflow.Name
                             WorkflowDisplayName      = $Workflow.DisplayName
                         })
-                        $Object.PSTypeNames.Insert(0, 'Spizzi.PowerShell.OperationsManager.Workflow')
+                        $Object.PSTypeNames.Insert(0, 'OperationsManagerFever.Workflow')
 
                         Write-Output $Object
                     }

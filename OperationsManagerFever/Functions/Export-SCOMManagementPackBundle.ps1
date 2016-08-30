@@ -1,11 +1,13 @@
 <#
     .SYNOPSIS
-    Export all artifacts from a SCOM Management Pack Bundle (.mpb).
+    Export all artifacts from a SCOM Management Pack Bundle (.mpb) to the file
+    system.
 
     .DESCRIPTION
-    Use this function to export all artifacts and the module itself from a
-    Management Pack Bundle file. It will use the SCOM API to perform these
-    extraction, therefore a connection to a SCOM Management Group is required.
+    Use this function to export all artifacts and the unsealed module itself
+    from a Management Pack Bundle file. It will use the SCOM API to perform
+    the extraction, therefore a connection to a SCOM Management Group is to
+    required.
 
     .INPUTS
     None.
@@ -38,7 +40,7 @@ function Export-SCOMManagementPackBundle
         $BundleFile,
 
         # The path to the output folder. Default is the same path as the
-        #  Management Pack Bundle file is located.
+        # Management Pack Bundle file is located.
         [Parameter(Mandatory = $false, Position = 1)]
         [ValidateScript({ Test-Path -Path $_ })]
         [System.String]
@@ -58,8 +60,10 @@ function Export-SCOMManagementPackBundle
         Write-Verbose "Open Management Pack Bundle $BundleFile"
 
         # Copy the bundle file to a temporary location, because the build-in
-        # cmdlet Get-SCOMManagementPack does not release the file handle
-        # to the target .mpb file.
+        # cmdlet Get-SCOMManagementPack does not propertly release the file
+        # handle to the target .mpb file. Without this action, you would not be
+        # able to move or delete the bundle file until you've closed the current
+        # PowerShell session.
         $BundleFile = Copy-Item -Path $BundleFile -Destination ([System.IO.Path]::GetTempFileName() + '.mpb') -Force -PassThru | % FullName
         $OutputPath = Resolve-Path -Path $OutputPath -ErrorAction Stop
 
@@ -81,7 +85,6 @@ function Export-SCOMManagementPackBundle
                 try
                 {
                     $FileStream = New-Object -TypeName 'System.IO.FileStream' -ArgumentList (Join-Path -Path $OutputPath -ChildPath $MemoryStream.Key), 'OpenOrCreate', 'Write'
-
                     $MemoryStream.Value.WriteTo($FileStream)
                 }
                 catch

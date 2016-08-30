@@ -3,11 +3,11 @@
   <ViewDefinitions>
 
     <View>
-      <Name>Spizzi.PowerShell.OperationsManager.Workflow</Name>
+      <Name>OperationsManagerFever.Workflow</Name>
       <ViewSelectedBy>
-        <TypeName>Deserialized.Spizzi.PowerShell.OperationsManager.Workflow</TypeName>
-        <TypeName>CSV:Spizzi.PowerShell.OperationsManager.Workflow</TypeName>
-        <TypeName>Spizzi.PowerShell.OperationsManager.Workflow</TypeName>
+        <TypeName>Deserialized.OperationsManagerFever.Workflow</TypeName>
+        <TypeName>CSV:OperationsManagerFever.Workflow</TypeName>
+        <TypeName>OperationsManagerFever.Workflow</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableHeaders>
