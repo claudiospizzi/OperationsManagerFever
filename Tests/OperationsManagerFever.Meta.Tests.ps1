@@ -141,7 +141,7 @@ Describe 'Meta' {
 
             { Import-Module "$ProjectRoot\$ModuleName" -Verbose:$false -ErrorAction Stop } | Should Not Throw
 
-            Remove-Module -Name 'OperationsManagerFever' -Verbose:$false -ErrorAction SilentlyContinue -Force
+            Remove-Module -Name $ModuleName -Verbose:$false -ErrorAction SilentlyContinue -Force
         }
     }
 }
