@@ -37,9 +37,13 @@
     <Compile Include="Functions\Export-SCOMManagementPackBundle.ps1" />
     <Compile Include="Functions\Get-SCOMHealthServiceActiveWorkflow.ps1" />
     <Compile Include="Functions\Get-SCOMHealthServiceFailedWorkflow.ps1" />
+    <Compile Include="Functions\Reset-SCOMAgentCache.ps1" />
+    <Compile Include="Functions\Reset-SCOMAgentConfig.ps1" />
+    <Compile Include="Functions\Reset-SCOMMonitor.ps1" />
     <Compile Include="Helpers\Get-SCOMManagementGroupConnectionActive.ps1" />
     <Compile Include="Helpers\Invoke-SCOMTask.ps1" />
     <Compile Include="Helpers\Resolve-SCOMWorkflowName.ps1" />
+    <Compile Include="Helpers\Test-SCOMMonitoringTaskResultForError.ps1" />
     <Compile Include="OperationsManagerFever.psd1" />
     <Compile Include="OperationsManagerFever.psm1" />
     <Compile Include="Resources\OperationsManagerFever.Formats.ps1xml" />
