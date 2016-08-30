@@ -42,7 +42,7 @@ param
     [Switch]
     $GitHub,
 
-    # Access token for the GitHub repository to publish new releases. 
+    # Access token for the GitHub repository to publish new releases.
     [Parameter(Mandatory = $false)]
     [System.String]
     $GitHubToken = $ENV:GitHubToken,
