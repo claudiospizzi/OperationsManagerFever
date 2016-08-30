@@ -14,7 +14,7 @@
     None.
 
     .EXAMPLE
-    PS C:\>  Reset-SCOMMonitor
+    PS C:\> Reset-SCOMMonitor
     Reset all monitors on all instances for the current SCOM connection. This
     will produce a high load on the connected your Management Group.
 
