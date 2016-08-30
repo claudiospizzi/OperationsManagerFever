@@ -1,5 +1,5 @@
-[![AppVeyor - master](https://ci.appveyor.com/api/projects/status/rq09t4u0349upk9e/branch/master?svg=true)](https://ci.appveyor.com/project/claudiospizzi/operationsmanagerfever/branch/master)
-[![AppVeyor - dev](https://ci.appveyor.com/api/projects/status/rq09t4u0349upk9e/branch/dev?svg=true)](https://ci.appveyor.com/project/claudiospizzi/operationsmanagerfever/branch/dev)
+[![AppVeyor - master](https://ci.appveyor.com/api/projects/status/rq09t4u0349upk9e/branch/master?svg=true)](https://ci.appveyor.com/project/claudiospizzi/OperationsManagerFever/branch/master)
+[![AppVeyor - dev](https://ci.appveyor.com/api/projects/status/rq09t4u0349upk9e/branch/dev?svg=true)](https://ci.appveyor.com/project/claudiospizzi/OperationsManagerFever/branch/dev)
 [![PowerShell Gallery - OperationsManagerFever](https://img.shields.io/badge/PowerShell%20Gallery-OperationsManagerFever-0072C6.svg)](https://www.powershellgallery.com/packages/OperationsManagerFever)
 
 
