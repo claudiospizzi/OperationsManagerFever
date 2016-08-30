@@ -12,6 +12,11 @@ param
     [System.String]
     $ModulePath = (Join-Path -Path $env:TEMP -ChildPath 'WindowsPowerShell'),
 
+    # The PowerShell module project root path, derived from the path by default.
+    [Parameter(Mandatory = $false)]
+    [System.String]
+    $ProjectRoot = ($PSScriptRoot | Split-Path),
+
     # The PowerShell module version, excracted from the module manifest by default.
     [Parameter(Mandatory = $false)]
     [System.String]
