@@ -3,11 +3,11 @@
 os: WMF 5
 
 # Secret deployment keys
-#environment:
-# GitHubToken:
-#   secure: tbd
-# PSGalleryKey:
-#   secure: tbd
+environment:
+  GitHubToken:
+    secure: g7atusVu/SvLWa4397EhDExCquI2srCWwO2JetLpnQ57V8Pzm27Eq9kj/v8X6wkd
+  PSGalleryKey:
+    secure: +o4/iom8ZO0TkCMSM0gInMHq/ioFlK7LRh2jJULTBejba3nCjp2EOv94DcTS2r20
 
 # Install Pester module
 install: 
@@ -30,5 +30,5 @@ build_script:
   - ps: .\Scripts\build.ps1 -ModuleName $ENV:APPVEYOR_PROJECT_NAME -AppVeyor -Verbose
 
 # Execute deployment script
-#deploy_script:
-#  - ps: .\Scripts\deploy.ps1 -Verbose
+deploy_script:
+  - ps: .\Scripts\deploy.ps1 -ModuleName $ENV:APPVEYOR_PROJECT_NAME -GitHub -PSGallery -Verbose
