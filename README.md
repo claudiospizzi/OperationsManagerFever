@@ -59,7 +59,7 @@ The module contains the following cmdlets:
 
 ## Versions
 
-### tbd
+### 1.0.0
 
 - Initial public release
 - Management Pack Bundle extraction function
