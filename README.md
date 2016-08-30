@@ -18,11 +18,12 @@ counters or reset SCOM agent health states by PowerShell.
 
 ## Requirenments
 
-The following minimum requirenments are necessary to use this module:
+The following minimum tested requirenments are necessary to use this module:
 
 - Windows PowerShell 3.0
 - Windows Server 2008 R2 / Windows 7
-- OperationsManager PowerShell Module (par of the SCOM Operations Console)
+- System Center Operations Manager 2012 R2
+- OperationsManager PowerShell Module (part of the SCOM Operations Console)
 
 
 ## Installation
@@ -52,8 +53,8 @@ The module contains the following cmdlets:
 | Cmdlet                              | Description                                                     |
 | ----------------------------------- | --------------------------------------------------------------- |
 | Export-SCOMManagementPackBundle     | Export all artifacts from a SCOM Management Pack Bundle (.mpb). |
-| Get-SCOMHealthServiceActiveWorkflow | Show all active workflows on a Health Service (e.g. Agent).     |
-| Get-SCOMHealthServiceFailedWorkflow | Show all failed workflows on a Health Service (e.g. Agent).     |
+| Get-SCOMHealthServiceActiveWorkflow | Show all active workflows on a Health Service (aka SCOM Agent). |
+| Get-SCOMHealthServiceFailedWorkflow | Show all failed workflows on a Health Service (aka SCOM Agent). |
 
 
 ## Versions
