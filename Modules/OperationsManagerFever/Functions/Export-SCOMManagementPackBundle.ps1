@@ -64,7 +64,7 @@ function Export-SCOMManagementPackBundle
         # handle to the target .mpb file. Without this action, you would not be
         # able to move or delete the bundle file until you've closed the current
         # PowerShell session.
-        $BundleFile = Copy-Item -Path $BundleFile -Destination ([System.IO.Path]::GetTempFileName() + '.mpb') -Force -PassThru | % FullName
+        $BundleFile = Copy-Item -Path $BundleFile -Destination ([System.IO.Path]::GetTempFileName() + '.mpb') -Force -PassThru | Select-Object -ExpandProperty FullName
         $OutputPath = Resolve-Path -Path $OutputPath -ErrorAction Stop
 
         Get-SCOMManagementPack -BundleFile $BundleFile -ErrorAction Stop | Export-SCOMManagementPack -Path $OutputPath -ErrorAction Stop
