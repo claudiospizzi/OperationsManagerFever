@@ -70,6 +70,10 @@ function Reset-SCOMAgentConfig
                 Select-Object -ExpandProperty 'InstallDirectory' | Join-Path -ChildPath 'Health Service State' |
                     Where-Object { Test-Path -Path $_ } |
                         Remove-Item -Recurse -Force
+
+            # Remove existing SCOM agent certificates
+            Get-ChildItem -Path 'Cert:\LocalMachine\Operations Manager\' -ErrorAction SilentlyContinue |
+                Remove-Item -Force
         }
     }
 
