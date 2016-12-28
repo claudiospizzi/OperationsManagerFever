@@ -77,7 +77,7 @@ function Reset-SCOMMonitor
         # instances on the current SCOM connection.
         if ($PSCmdlet.ParameterSetName -eq 'All')
         {
-            $Instnace = Get-SCOMClassInstance -ErrorAction Stop
+            $Instance = Get-SCOMClassInstance -ErrorAction Stop
         }
 
         # If the classes are specified, load all their discovered instances as
