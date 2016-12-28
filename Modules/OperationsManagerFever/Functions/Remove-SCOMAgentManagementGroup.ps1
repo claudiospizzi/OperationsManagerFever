@@ -4,7 +4,8 @@
     Remove an existing Management Group connection from a SCOM Agent.
 
     .DESCRIPTION
-    
+    Use PowerShell Remoting in combination with a local COM object query to
+    remove an existing Management Group from the SCOM Agent.
 
     .INPUTS
     None.
@@ -13,8 +14,8 @@
     None.
 
     .EXAMPLE
-    PS C:\> 
-
+    PS C:\> Remove-SCOMAgentManagementGroup -ComputerName 'PC1' -ManagementGroupName 'CONTOSO'
+    Remove the CONTOSO Managemeng Group from the SCOM Agent PC1.
 
     .NOTES
     Author     : Claudio Spizzi
@@ -58,6 +59,8 @@ function Remove-SCOMAgentManagementGroup
         # Query script block
         $query = {
 
+            param ($ManagementGroupName)
+
             try
             {
                 $config = New-Object -ComObject AgentConfigManager.MgmtSvcCfg
@@ -67,26 +70,16 @@ function Remove-SCOMAgentManagementGroup
                 throw "No Monitoring Agent installed on $Env:ComputerName."
             }
 
+            $groups = $config.GetManagementGroups() | Select-Object -ExpandProperty 'managementGroupName'
 
-
-            
-	# $sb = {
-	# 	param($ManagementGroup, 
-	# 	  $ComputerName = "Localhost")
-	# 	Try {
-	# 		$OMCfg = New-Object -ComObject AgentConfigManager.MgmtSvcCfg
-	# 	} catch {
-	# 		throw "$ComputerName doesn't have the SCOM 2012 agent installed"
-	# 	}
-	# 	$mgs = $OMCfg.GetManagementGroups() | %{$_.managementGroupName}
-	# 	if ($mgs -contains $ManagementGroup) {
-	# 		$OMCfg.RemoveManagementGroup($ManagementGroup)
-	# 		return "$ManagementGroup removed from $ComputerName"
-	# 	} else {
-	# 		return "$ComputerName does not report to $ManagementGroup"
-	# 	}
-	# }
-	# Invoke-Command -ScriptBlock $sb -ComputerName $ComputerName -ArgumentList @($ManagementGroup,$ComputerName)
+            if ($groups -contains $ManagementGroupName)
+            {
+                $config.RemoveManagementGroup($ManagementGroupName)
+            }
+            else
+            {
+                throw "Management Group $ManagementGroupName not found on Monitoring Agent $Env:ComputerName."
+            }
         }
     }
 
@@ -96,9 +89,8 @@ function Remove-SCOMAgentManagementGroup
         {
             if ($PSCmdlet.ShouldProcess($computer, "Remove Management Group $ManagementGroupName"))
             {
-                
+                Invoke-Command -ComputerName $ComputerName -ScriptBlock $query -ArgumentList $ManagementGroupName @credentialParam -ErrorAction Continue
             }
         }
     }
 }
-
