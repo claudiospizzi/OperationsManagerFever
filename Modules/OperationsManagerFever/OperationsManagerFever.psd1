@@ -9,6 +9,7 @@
     RequiredModules    = @(
         'OperationsManager'
     )
+    RequiredAssemblies = @()
     ScriptsToProcess   = @()
     TypesToProcess     = @(
         'Resources\OperationsManagerFever.Types.ps1xml'
