@@ -57,6 +57,12 @@ manually on your local system:
 * **Get-SCOMHealthServiceFailedWorkflow**  
   Show all failed workflows on a Health Service (aka SCOM Agent).
 
+* **Get-SCOMAgentManagementGroup**  
+  Get all Management Group connections of a SCOM Agent.
+
+* **Remove-SCOMAgentManagementGroup**  
+  Remove an existing Management Group connection from a SCOM Agent.
+
 * **Reset-SCOMAgentCache**  
   Reset the SCOM health service cache on target systems.
 

@@ -24,6 +24,8 @@
         'Reset-SCOMAgentCache'
         'Reset-SCOMAgentConfig'
         'Reset-SCOMMonitor'
+        'Get-SCOMAgentManagementGroup'
+        'Remove-SCOMAgentManagementGroup'
     )
     CmdletsToExport    = @()
     VariablesToExport  = @()
