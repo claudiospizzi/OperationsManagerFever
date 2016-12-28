@@ -9,26 +9,27 @@ environment:
   PSGalleryKey:
     secure: +o4/iom8ZO0TkCMSM0gInMHq/ioFlK7LRh2jJULTBejba3nCjp2EOv94DcTS2r20
 
-# Install Pester module
-install: 
+# Install required Pester and PSScriptAnalyzer modules and all binaries
+install:
   - ps: Install-PackageProvider NuGet -Force | Out-Null
   - ps: Install-Module Pester -Force
-  - cmd: start /wait msiexec /i "Tools\SQLServer2012CLRTypes.msi"   /q /l "Tools\SQLServer2012CLRTypes.log"
-  - cmd: start /wait msiexec /i "Tools\ReportViewer2012Runtime.msi" /q /l "Tools\ReportViewer2012Runtime.log"
-  - cmd: start /wait msiexec /i "Tools\SCOM2012R2Console.msi"       /q /l "Tools\SCOM2012R2Console.log"
+  - ps: Install-Module PSScriptAnalyzer -Force
+  - cmd: start /wait msiexec /i "Assets\SQLServer2012CLRTypes.msi"   /q /l "Assets\SQLServer2012CLRTypes.log"
+  - cmd: start /wait msiexec /i "Assets\ReportViewer2012Runtime.msi" /q /l "Assets\ReportViewer2012Runtime.log"
+  - cmd: start /wait msiexec /i "Assets\SCOM2012R2Console.msi"       /q /l "Assets\SCOM2012R2Console.log"
   - ps: $ENV:PSModulePath += ';' + 'C:\Program Files\System Center Operations Manager 2012\PowerShell'; Import-Module OperationsManager -Force
 
 # Set version to build number
 version: '{build}'
 
+# Execute compile and build
+build_script:
+  - ps: .\Scripts\build.ps1 -AppVeyor
+
 # Execute test script
 test_script:
-  - ps: .\Scripts\test.ps1 -ModuleName $ENV:APPVEYOR_PROJECT_NAME -AppVeyor -Verbose
+  - ps: .\Scripts\test.ps1 -AppVeyor
 
-# Execute build script
-build_script:
-  - ps: .\Scripts\build.ps1 -ModuleName $ENV:APPVEYOR_PROJECT_NAME -AppVeyor -Verbose
-
-# Execute deployment script
+# Execute deploy script
 deploy_script:
-  - ps: .\Scripts\deploy.ps1 -ModuleName $ENV:APPVEYOR_PROJECT_NAME -GitHub -PSGallery -Verbose
+  - ps: .\Scripts\release.ps1 -AppVeyor
