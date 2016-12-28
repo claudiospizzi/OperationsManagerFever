@@ -3,6 +3,7 @@ function Get-SCOMManagementGroupConnectionActive
 {
     [CmdletBinding()]
     [OutputType([Microsoft.SystemCenter.Core.Connection.Connection])]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingCmdletAliases', '')]
     param ()
 
     $ActiveConnection = Get-SCOMManagementGroupConnection | Where-Object { $_.IsActive }

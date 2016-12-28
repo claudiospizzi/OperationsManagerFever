@@ -36,6 +36,7 @@ function Get-SCOMHealthServiceActiveWorkflow
 {
     [CmdletBinding()]
     [OutputType([PSCustomObject])]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingCmdletAliases', '')]
     param
     (
         # Provide the display name for the target health service. Wildcard are

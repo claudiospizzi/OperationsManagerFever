@@ -30,6 +30,7 @@
 function Export-SCOMManagementPackBundle
 {
     [CmdletBinding()]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingCmdletAliases', '')]
     param
     (
         # The full path to a Management Pack Bundle file.

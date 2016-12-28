@@ -2,6 +2,7 @@
 function Resolve-SCOMWorkflowName
 {
     [CmdletBinding()]
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingCmdletAliases', '')]
     param
     (
         [Parameter(Mandatory = $true, Position = 0)]
