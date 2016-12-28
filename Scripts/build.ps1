@@ -1,26 +1,29 @@
+#Requires -Version 5.0
+
+<#
+    .SYNOPSIS
+    Build the PowerShell module and upload the artifact to AppVeyor.
+
+    .DESCRIPTION
+    Build a PowerShell module means creating a ZIP file with the necessary
+    files. If needed, the created ZIP file can be uploaded to the current
+    running AppVeyor build.
+#>
 
 [CmdletBinding()]
 param
 (
-    # The PowerShell module name, extracted from the path by default.
+    # The PowerShell module project root path, derived from the current script
+    # path by default.
     [Parameter(Mandatory = $false)]
     [System.String]
-    $ModuleName = ($PSScriptRoot | Split-Path | Split-Path -Leaf),
+    $ProjectPath = ($PSScriptRoot | Split-Path),
 
-    # The build stating path for the PowerShell module, inside temp by default.
+    # The build stating path for the PowerShell module, where the ZIP file is
+    # created. In the user temporary folder by default.
     [Parameter(Mandatory = $false)]
     [System.String]
-    $ModulePath = (Join-Path -Path $env:TEMP -ChildPath 'WindowsPowerShell'),
-
-    # The PowerShell module project root path, derived from the path by default.
-    [Parameter(Mandatory = $false)]
-    [System.String]
-    $ProjectRoot = ($PSScriptRoot | Split-Path),
-
-    # The PowerShell module version, excracted from the module manifest by default.
-    [Parameter(Mandatory = $false)]
-    [System.String]
-    $ModuleVersion = ((Invoke-Expression -Command (Get-Content -Path "$ProjectRoot\$ModuleName\$ModuleName.psd1" -Raw)).ModuleVersion),
+    $StagingPath = $Env:TEMP,
 
     # Option to enable the AppVeyor specific build tasks.
     [Parameter(Mandatory = $false)]
@@ -36,32 +39,20 @@ param
 
 ## PREPARE
 
-# Add the temporary module path to the current environment
-if ($env:PSModulePath -notlike "*$ModulePath*")
-{
-    $env:PSModulePath += ';' + $ModulePath
-}
-
-# Cleanup the build environment from previous builds
-if ((Test-Path -Path "$ModulePath\$ModuleName"))
-{
-    Remove-Item -Path "$ModulePath\$ModuleName" -Recurse -Force
-}
+# Extract the module name from the modules folder, anything else from the module
+# definition file.
+$ModuleName    = (Get-ChildItem -Path "$ProjectPath\Modules" | Select-Object -First 1 -ExpandProperty Name)
+$ModuleVersion = (Import-PowerShellDataFile -Path "$ProjectPath\Modules\$ModuleName\$ModuleName.psd1").ModuleVersion
 
 
 ## BUILD
 
 Write-Verbose '** BUILD'
 
-New-Item -Path "$ModulePath\$ModuleName" -ItemType Directory -Verbose:$VerbosePreference | Out-Null
-
-Copy-Item -Path "$ProjectRoot\$ModuleName\$ModuleName.psd1" -Destination "$ModulePath\$ModuleName" -Verbose:$VerbosePreference
-Copy-Item -Path "$ProjectRoot\$ModuleName\$ModuleName.psm1" -Destination "$ModulePath\$ModuleName" -Verbose:$VerbosePreference
-
-Copy-Item -Path "$ProjectRoot\$ModuleName\en-US"     -Destination "$ModulePath\$ModuleName" -Recurse -Verbose:$VerbosePreference
-Copy-Item -Path "$ProjectRoot\$ModuleName\Functions" -Destination "$ModulePath\$ModuleName" -Recurse -Verbose:$VerbosePreference
-Copy-Item -Path "$ProjectRoot\$ModuleName\Helpers"   -Destination "$ModulePath\$ModuleName" -Recurse -Verbose:$VerbosePreference
-Copy-Item -Path "$ProjectRoot\$ModuleName\Resources" -Destination "$ModulePath\$ModuleName" -Recurse -Verbose:$VerbosePreference
+# In case of PowerShell, creating a build means zipping the requried files.
+# Thanks to the project structure, all requried but no extra files are in
+# the modules folder.
+Compress-Archive -Path "$ProjectPath\Modules\$ModuleName" -DestinationPath "$StagingPath\$ModuleName-$ModuleVersion.zip" -Force -Verbose:$VerbosePreference
 
 
 ## BUILD (APPVEYOR)
@@ -70,7 +61,6 @@ if ($AppVeyor.IsPresent)
 {
     Write-Verbose '** BUILD (APPVEYOR)'
 
-    Compress-Archive -Path "$ModulePath\$ModuleName" -DestinationPath "$ModulePath\$ModuleName-$ModuleVersion.$AppVeyorBuildNumber.zip" -Force -Verbose:$VerbosePreference
-
-    Push-AppveyorArtifact -Path "$ModulePath\$ModuleName-$ModuleVersion.$AppVeyorBuildNumber.zip" -DeploymentName 'Module' -Verbose:$VerbosePreference
+    # Use the provided cmdlet to push the artifact to AppVeyor.
+    Push-AppveyorArtifact -Path "$StagingPath\$ModuleName-$ModuleVersion.zip" -DeploymentName 'Module' -Verbose:$VerbosePreference
 }

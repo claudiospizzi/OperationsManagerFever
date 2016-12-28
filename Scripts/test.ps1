@@ -1,16 +1,30 @@
+#Requires -Version 5.0
+#Requires -Modules Pester, PSScriptAnalyzer
+
+<#
+    .SYNOPSIS
+    Test the PowerShell module with Pester and upload the results to AppVeyor.
+
+    .DESCRIPTION
+    Using Pester to execute all tests within the Tests folder. The tests result
+    is dropped as NUnit XML file in the staging path. The test results can be
+    uploaded to AppVeyor.
+#>
 
 [CmdletBinding()]
 param
 (
-    # The PowerShell module name, extracted from the path by default.
+    # The PowerShell module project root path, derived from the current script
+    # path by default.
     [Parameter(Mandatory = $false)]
     [System.String]
-    $ModuleName = ($PSScriptRoot | Split-Path | Split-Path -Leaf),
+    $ProjectPath = ($PSScriptRoot | Split-Path),
 
-    # The PowerShell module project root path, derived from the path by default.
+    # The test stating path for the PowerShell module, where the NUnit test
+    # result file is created. In the user temporary folder by default.
     [Parameter(Mandatory = $false)]
     [System.String]
-    $ProjectRoot = ($PSScriptRoot | Split-Path),
+    $StagingPath = $Env:TEMP,
 
     # Option to enable the AppVeyor specific build tasks.
     [Parameter(Mandatory = $false)]
@@ -26,14 +40,21 @@ param
 
 ## PREPARE
 
-Import-Module Pester -Force
+# Extract the module name from the modules folder, anything else from the module
+# definition file.
+$ModuleName    = (Get-ChildItem -Path "$ProjectPath\Modules" | Select-Object -First 1 -ExpandProperty Name)
+$ModuleVersion = (Import-PowerShellDataFile -Path "$ProjectPath\Modules\$ModuleName\$ModuleName.psd1").ModuleVersion
 
 
 ## TEST
 
 Write-Verbose "** TEST"
 
-$TestResults = Invoke-Pester -Path "$ProjectRoot\Tests" -OutputFormat NUnitXml -OutputFile "$env:TEMP\$ModuleName.NUnit.xml" -PassThru
+# Preload the meta tests
+Invoke-Pester -Path "$ProjectPath\Tests" -TestName 'Meta Autoload'
+
+# Use the Pester invoke command to execte all tests.
+$TestResults = Invoke-Pester -Path "$ProjectPath\Tests" -OutputFormat NUnitXml -OutputFile "$StagingPath\$ModuleName-$ModuleVersion.NUnit.xml" -PassThru
 
 
 ## TEST (APPVEYOR)
@@ -42,7 +63,7 @@ if ($AppVeyor.IsPresent)
 {
     Write-Verbose "** TEST (APPVEYOR)"
 
-    $Source = "$env:TEMP\$ModuleName.NUnit.xml"
+    $Source = "$StagingPath\$ModuleName-$ModuleVersion.NUnit.xml"
     $Target = "https://ci.appveyor.com/api/testresults/nunit/$AppVeyorBuildJobId"
 
     Write-Verbose "Upload $Source to $Target"
