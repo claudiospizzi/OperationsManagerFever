@@ -75,10 +75,11 @@ manually on your local system:
 
 ## Versions
 
-### tbd
+### 1.1.0
 
 - Add cmdlet for reseting monitors
 - Add cmdlet for reseting agents
+- Add cmdlets for managing agent management group connectins
 
 ### 1.0.0
 

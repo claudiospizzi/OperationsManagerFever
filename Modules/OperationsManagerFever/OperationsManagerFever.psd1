@@ -1,6 +1,6 @@
 @{
     RootModule         = 'OperationsManagerFever.psm1'
-    ModuleVersion      = '1.0.0'
+    ModuleVersion      = '1.1.0'
     GUID               = '73EA7A8D-F3F2-42D8-8173-BB7DCDC49FA2'
     Author             = 'Claudio Spizzi'
     Copyright          = 'Copyright (c) 2016 by Claudio Spizzi. Licensed under MIT license.'
