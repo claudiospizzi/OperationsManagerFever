@@ -33,7 +33,7 @@
 
 function Reset-SCOMAgentCache
 {
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param
     (
         # A list of computer names where the Monitoring Agent wil be reseted.
@@ -43,7 +43,8 @@ function Reset-SCOMAgentCache
 
         # Optional credentials to perform the action.
         [Parameter(Mandatory = $false)]
-        [PSCredential]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
         $Credential
     )
 
@@ -74,6 +75,9 @@ function Reset-SCOMAgentCache
             $InvokeCommandParam['Credential'] = $Credential
         }
 
-        Invoke-Command @InvokeCommandParam -ComputerName $ComputerName -ScriptBlock $ResetCommand
+        if ($PSCmdlet.ShouldProcess($ComputerName, 'Reset Agent Cache'))
+        {
+            Invoke-Command @InvokeCommandParam -ComputerName $ComputerName -ScriptBlock $ResetCommand
+        }
     }
 }

@@ -38,7 +38,7 @@
 
 function Reset-SCOMMonitor
 {
-    [CmdletBinding(DefaultParameterSetName = 'All')]
+    [CmdletBinding(DefaultParameterSetName = 'All', SupportsShouldProcess = $true)]
     param
     (
         # Filter the target objects with this specified classes.
@@ -100,16 +100,19 @@ function Reset-SCOMMonitor
             {
                 Write-Verbose "Reset Health State for $($CurrentInstance.DisplayName) ($($CurrentInstance.Id))"
 
-                # Verify if the whole instance or just one monitor should be reseted.
-                if ($Monitor -eq $null)
+                if ($PSCmdlet.ShouldProcess($CurrentInstance.DisplayName, 'Reset Monitor'))
                 {
-                    $CurrentInstance.ResetMonitoringState() | Test-SCOMMonitoringTaskResultForError
-                    $CurrentInstance.RecalculateMonitoringState() | Test-SCOMMonitoringTaskResultForError
-                }
-                else
-                {
-                    $CurrentInstance.ResetMonitoringState($Monitor) | Test-SCOMMonitoringTaskResultForError
-                    $CurrentInstance.RecalculateMonitoringState($Monitor) | Test-SCOMMonitoringTaskResultForError
+                    # Verify if the whole instance or just one monitor should be reseted.
+                    if ($Monitor -eq $null)
+                    {
+                        $CurrentInstance.ResetMonitoringState() | Test-SCOMMonitoringTaskResultForError
+                        $CurrentInstance.RecalculateMonitoringState() | Test-SCOMMonitoringTaskResultForError
+                    }
+                    else
+                    {
+                        $CurrentInstance.ResetMonitoringState($Monitor) | Test-SCOMMonitoringTaskResultForError
+                        $CurrentInstance.RecalculateMonitoringState($Monitor) | Test-SCOMMonitoringTaskResultForError
+                    }
                 }
             }
         }
