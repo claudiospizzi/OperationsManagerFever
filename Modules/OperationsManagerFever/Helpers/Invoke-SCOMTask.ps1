@@ -26,7 +26,7 @@ function Invoke-SCOMTask
     {
         # Endless while loop to wait for the current task. The loop ends as if
         # the TimeFinished porperty is not null anymore.
-        while (($Result = Get-SCOMTaskResult -Id $Result.Id -SCSession $Connection).TimeFinished -eq $null)
+        while ($null -eq ($Result = Get-SCOMTaskResult -Id $Result.Id -SCSession $Connection).TimeFinished)
         {
             Start-Sleep -Seconds 1
         }

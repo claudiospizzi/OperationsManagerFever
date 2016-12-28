@@ -13,15 +13,15 @@ function Resolve-SCOMWorkflowName
         $Connection
     )
 
-    if (($Rule = Get-SCOMRule -Name $Name) -ne $null)
+    if ($null -ne ($Rule = Get-SCOMRule -Name $Name))
     {
         Write-Output $Rule
     }
-    elseif (($Monitor = Get-SCOMMonitor -Name $Name) -ne $null)
+    elseif ($null -ne ($Monitor = Get-SCOMMonitor -Name $Name))
     {
         Write-Output $Monitor
     }
-    elseif (($Discovery = Get-SCOMDiscovery -Name $Name) -ne $null)
+    elseif ($null -ne ($Discovery = Get-SCOMDiscovery -Name $Name))
     {
         Write-Output $Discovery
     }

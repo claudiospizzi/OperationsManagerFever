@@ -7,7 +7,7 @@ function Get-SCOMManagementGroupConnectionActive
 
     $ActiveConnection = Get-SCOMManagementGroupConnection | Where-Object { $_.IsActive }
 
-    if ($ActiveConnection -ne $null)
+    if ($null -ne $ActiveConnection)
     {
         return $ActiveConnection
     }
