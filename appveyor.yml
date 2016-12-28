@@ -14,9 +14,9 @@ install:
   - ps: Install-PackageProvider NuGet -Force | Out-Null
   - ps: Install-Module Pester -Force
   - ps: Install-Module PSScriptAnalyzer -Force
-  - cmd: start /wait msiexec /i "Assets\SQLServer2012CLRTypes.msi"   /q /l "Assets\SQLServer2012CLRTypes.log"
-  - cmd: start /wait msiexec /i "Assets\ReportViewer2012Runtime.msi" /q /l "Assets\ReportViewer2012Runtime.log"
-  - cmd: start /wait msiexec /i "Assets\SCOM2012R2Console.msi"       /q /l "Assets\SCOM2012R2Console.log"
+  - cmd: start /wait msiexec /i "Assets\SQLServer2012CLRTypes.msi"   /q /l "%TEMP%\SQLServer2012CLRTypes.log"
+  - cmd: start /wait msiexec /i "Assets\ReportViewer2012Runtime.msi" /q /l "%TEMP%\ReportViewer2012Runtime.log"
+  - cmd: start /wait msiexec /i "Assets\SCOM2012R2Console.msi"       /q /l "%TEMP%\SCOM2012R2Console.log"
   - ps: $ENV:PSModulePath += ';' + 'C:\Program Files\System Center Operations Manager 2012\PowerShell'; Import-Module OperationsManager -Force
 
 # Set version to build number
