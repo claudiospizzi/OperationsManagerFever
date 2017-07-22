@@ -19,7 +19,7 @@ counters or reset SCOM agent health states by PowerShell.
 
 ## Features
 
-### Management Pack Bundle
+### Management Pack
 
 * **Export-SCOMManagementPackBundle**  
   Export all artifacts from a SCOM Management Pack Bundle (.mpb).
@@ -104,10 +104,6 @@ section by using the release pipeline on AppVeyor, use the following procedure:
 6. Push the commits to GitHub
 7. Tag the last commit with the version number
 8. Push the tag to GitHub
-
-
-
-
 
 
 
