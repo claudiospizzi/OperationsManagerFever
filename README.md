@@ -1,61 +1,30 @@
-[![AppVeyor - master](https://img.shields.io/appveyor/ci/claudiospizzi/OperationsManagerFever/master.svg)](https://ci.appveyor.com/project/claudiospizzi/OperationsManagerFever/branch/master)
-[![AppVeyor - dev](https://img.shields.io/appveyor/ci/claudiospizzi/OperationsManagerFever/dev.svg)](https://ci.appveyor.com/project/claudiospizzi/OperationsManagerFever/branch/dev)
-[![GitHub - Release](https://img.shields.io/github/release/claudiospizzi/OperationsManagerFever.svg)](https://github.com/claudiospizzi/OperationsManagerFever/releases)
 [![PowerShell Gallery - OperationsManagerFever](https://img.shields.io/badge/PowerShell_Gallery-OperationsManagerFever-0072C6.svg)](https://www.powershellgallery.com/packages/OperationsManagerFever)
+[![GitHub - Release](https://img.shields.io/github/release/claudiospizzi/OperationsManagerFever.svg)](https://github.com/claudiospizzi/OperationsManagerFever/releases)
+[![AppVeyor - master](https://img.shields.io/appveyor/ci/claudiospizzi/OperationsManagerFever/master.svg)](https://ci.appveyor.com/project/claudiospizzi/OperationsManagerFever/branch/master)
+[![AppVeyor - dev](https://img.shields.io/appveyor/ci/claudiospizzi/OperationsManagerFever/master.svg)](https://ci.appveyor.com/project/claudiospizzi/OperationsManagerFever/branch/dev)
 
 
 # OperationsManagerFever PowerShell Module
 
-PowerShell Module with additional custom functions and cmdlets for System Center
-Operations Manager.
+PowerShell Module with custom functions and cmdlets for System Center Operations
+Manager.
 
 
 ## Introduction
 
-This is a personal PowerShell Module by Claudio Spizzi. I use it to manage
-System Center Operations Manager, e.g. exporting MP bundles and get performance
+This is a personal PowerShell Module by Claudio Spizzi. It is used to manage
+System Center Operations Manager, e.g. exporting MP bundles, get performance
 counters or reset SCOM agent health states by PowerShell.
-
-
-## Requirements
-
-The following minimum requirements are necessary to use this module:
-
-* Windows PowerShell 3.0
-* Windows Server 2008 R2 / Windows 7
-- System Center Operations Manager 2012 R2 or later
-- OperationsManager PowerShell Module (part of the SCOM Operations Console)
-
-
-## Installation
-
-With PowerShell 5.0, the new [PowerShell Gallery] was introduced. Additionally,
-the new module [PowerShellGet] was added to the default WMF 5.0 installation.
-With the cmdlet `Install-Module`, a published module from the PowerShell Gallery
-can be downloaded and installed directly within the PowerShell host, optionally
-with the scope definition:
-
-```powershell
-Install-Module OperationsManagerFever [-Scope {CurrentUser | AllUsers}]
-```
-
-Alternatively, download the latest release from GitHub and install the module
-manually on your local system:
-
-1. Download the latest release from GitHub as a ZIP file: [GitHub Releases]
-2. Extract the module and install it: [Installing a PowerShell Module]
 
 
 ## Features
 
+### Management Pack Bundle
+
 * **Export-SCOMManagementPackBundle**  
   Export all artifacts from a SCOM Management Pack Bundle (.mpb).
 
-* **Get-SCOMHealthServiceActiveWorkflow**  
-  Show all active workflows on a Health Service (aka SCOM Agent).
-
-* **Get-SCOMHealthServiceFailedWorkflow**  
-  Show all failed workflows on a Health Service (aka SCOM Agent).
+### Health Service (SCOM Agent)
 
 * **Get-SCOMAgentManagementGroup**  
   Get all Management Group connections of a SCOM Agent.
@@ -69,23 +38,50 @@ manually on your local system:
 * **Reset-SCOMAgentConfig**  
   Reset the SCOM health service configuration (!) on target systems.
 
+* **Get-SCOMHealthServiceActiveWorkflow**  
+  Show all active workflows on a Health Service.
+
+* **Get-SCOMHealthServiceFailedWorkflow**  
+  Show all failed workflows on a Health Service.
+
+### Monitor
+
 * **Reset-SCOMMonitor**  
   Bulk reset one or multiple monitors in the Management Group.
 
 
 ## Versions
 
-### 1.1.0
+Please find all versions in the [GitHub Releases] section and the release notes
+in the [CHANGELOG.md] file.
 
-- Add cmdlet for reseting monitors
-- Add cmdlet for reseting agents
-- Add cmdlets for managing agent management group connectins
 
-### 1.0.0
+## Installation
 
-- Initial public release
-- Management Pack Bundle extraction function
-- Health Service workflow listing function
+Use the following command to install the module from the [PowerShell Gallery],
+if the PackageManagement and PowerShellGet modules are available:
+
+```powershell
+# Download and install the module
+Install-Module -Name 'OperationsManagerFever'
+```
+
+Alternatively, download the latest release from GitHub and install the module
+manually on your local system:
+
+1. Download the latest release from GitHub as a ZIP file: [GitHub Releases]
+2. Extract the module and install it: [Installing a PowerShell Module]
+
+
+## Requirements
+
+The following minimum requirements are necessary to use this module, or in other
+words are used to test this module:
+
+* Windows PowerShell 3.0
+* Windows Server 2008 R2 / Windows 7
+* System Center Operations Manager 2012 R2 or later
+* OperationsManager PowerShell Module (part of the SCOM Operations Console)
 
 
 ## Contribute
@@ -94,25 +90,35 @@ Please feel free to contribute by opening new issues or providing pull requests.
 For the best development experience, open this project as a folder in Visual
 Studio Code and ensure that the PowerShell extension is installed.
 
-* [Visual Studio Code]
-* [PowerShell Extension]
+* [Visual Studio Code] with the [PowerShell Extension]
+* [Pester], [PSScriptAnalyzer] and [psake] PowerShell Modules
 
-This module is tested with the PowerShell testing framework Pester. To run all
-tests, just start the included test script `.\Scripts\test.ps1` or invoke Pester
-directly with the `Invoke-Pester` cmdlet. The tests will automatically download
-the latest meta test from the claudiospizzi/PowerShellModuleBase repository.
+To release a new version in the PowerShell Gallery and the GitHub Releases
+section by using the release pipeline on AppVeyor, use the following procedure:
 
-To debug the module, just copy the existing `.\Scripts\debug.default.ps1` file
-to `.\Scripts\debug.ps1`, which is ignored by git. Now add the command to the
-debug file and start it.
+1. Commit all changes in the dev branch
+2. Push the commits to GitHub
+3. Merge all commits to the master branch
+4. Update the version number and release notes in the module manifest and CHANGELOG.md
+5. Commit all changes in the master branch (comment: Version x.y.z)
+6. Push the commits to GitHub
+7. Tag the last commit with the version number
+8. Push the tag to GitHub
+
+
+
+
 
 
 
 [PowerShell Gallery]: https://www.powershellgallery.com/packages/OperationsManagerFever
-[PowerShellGet]: https://technet.microsoft.com/en-us/library/dn807169.aspx
-
 [GitHub Releases]: https://github.com/claudiospizzi/OperationsManagerFever/releases
 [Installing a PowerShell Module]: https://msdn.microsoft.com/en-us/library/dd878350
 
+[CHANGELOG.md]: CHANGELOG.md
+
 [Visual Studio Code]: https://code.visualstudio.com/
 [PowerShell Extension]: https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell
+[Pester]: https://www.powershellgallery.com/packages/Pester
+[PSScriptAnalyzer]: https://www.powershellgallery.com/packages/PSScriptAnalyzer
+[psake]: https://www.powershellgallery.com/packages/psake
