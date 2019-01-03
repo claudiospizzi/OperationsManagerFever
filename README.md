@@ -1,7 +1,7 @@
 [![PowerShell Gallery - OperationsManagerFever](https://img.shields.io/badge/PowerShell_Gallery-OperationsManagerFever-0072C6.svg)](https://www.powershellgallery.com/packages/OperationsManagerFever)
 [![GitHub - Release](https://img.shields.io/github/release/claudiospizzi/OperationsManagerFever.svg)](https://github.com/claudiospizzi/OperationsManagerFever/releases)
 [![AppVeyor - master](https://img.shields.io/appveyor/ci/claudiospizzi/OperationsManagerFever/master.svg)](https://ci.appveyor.com/project/claudiospizzi/OperationsManagerFever/branch/master)
-[![AppVeyor - dev](https://img.shields.io/appveyor/ci/claudiospizzi/OperationsManagerFever/master.svg)](https://ci.appveyor.com/project/claudiospizzi/OperationsManagerFever/branch/dev)
+[![AppVeyor - dev](https://img.shields.io/appveyor/ci/claudiospizzi/OperationsManagerFever/dev.svg)](https://ci.appveyor.com/project/claudiospizzi/OperationsManagerFever/branch/dev)
 
 
 # OperationsManagerFever PowerShell Module
@@ -92,18 +92,6 @@ Studio Code and ensure that the PowerShell extension is installed.
 
 * [Visual Studio Code] with the [PowerShell Extension]
 * [Pester], [PSScriptAnalyzer] and [psake] PowerShell Modules
-
-To release a new version in the PowerShell Gallery and the GitHub Releases
-section by using the release pipeline on AppVeyor, use the following procedure:
-
-1. Commit all changes in the dev branch
-2. Push the commits to GitHub
-3. Merge all commits to the master branch
-4. Update the version number and release notes in the module manifest and CHANGELOG.md
-5. Commit all changes in the master branch (comment: Version x.y.z)
-6. Push the commits to GitHub
-7. Tag the last commit with the version number
-8. Push the tag to GitHub
 
 
 
